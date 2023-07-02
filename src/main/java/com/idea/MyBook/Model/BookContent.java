@@ -1,20 +1,19 @@
 package com.idea.MyBook.Model;
 
-import com.idea.MyBook.Model.Mixed.LogDetail;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
-public class ActivityLog {
+@Setter
+public class BookContent {
     @Id
     String id;
-    String time;
-    String content;
-    int type;
-    String modelId;
+    Integer index; //-1 = xoa, 0-?: thu tu
+    String content; //html src hoac chu
+    String bookId;
 }

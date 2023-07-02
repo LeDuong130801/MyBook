@@ -16,4 +16,5 @@ public class FavoriteList {
     String userAccountId;
     String nameFavorite;
     ArrayList<String> listBook;
+    Boolean deleted;
 }
