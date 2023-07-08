@@ -13,4 +13,7 @@ public interface UserAccountRepository extends MongoRepository<UserAccount, Stri
     ArrayList<UserAccount> getUserAccountsByDeleted(Boolean deleted);
     UserAccount getUserAccountsById(String id);
     Boolean existsUserAccountById(String id);
+    ArrayList<UserAccount> findAllByDeletedFalseOrDeletedTrue();
+    ArrayList<UserAccount> findAllByDeletedFalse();
+    ArrayList<UserAccount> findAllByDeletedTrue();
 }

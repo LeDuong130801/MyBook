@@ -3,10 +3,14 @@ package com.idea.MyBook.Controller;
 import com.idea.MyBook.Model.Book;
 import com.idea.MyBook.Model.Mixed.MixedObj;
 import com.idea.MyBook.Model.TagBook;
+import com.idea.MyBook.Model.UploadResponse;
 import com.idea.MyBook.Service.BookService;
+import com.idea.MyBook.Service.FileStorageBookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
@@ -16,6 +20,8 @@ import java.util.ArrayList;
 public class BookController {
     @Autowired
     BookService thisService;
+    @Autowired
+    FileStorageBookService fileStorageBookService;
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addBook(@RequestBody Book book){
         thisService.addNewBook(book);
@@ -69,4 +75,19 @@ public class BookController {
         thisService.addNewTagBookToBook(tagBook, bookId);
         return "added tagbook in book "+bookId;
     }
+    @PostMapping("/uploadbook")
+    public ResponseEntity<String> uploadFile( @RequestParam(name = "file", required = false) MultipartFile file) {
+        String fileName = fileStorageBookService.storeFile(file);
+        UploadResponse uploadResponse = new UploadResponse(fileName);
+
+        return ResponseEntity.ok().body(uploadResponse.getFileName());
+    }
+    @PostMapping("/uploadbookimg")
+    public ResponseEntity<String> uploadBookImg( @RequestParam(name = "file", required = false) MultipartFile file,@RequestParam(name="bookId") String bookId) {
+        String fileName = fileStorageBookService.storeFile(file);
+        UploadResponse uploadResponse = new UploadResponse(fileName);
+        thisService.updateBookImg(fileName, bookId);
+        return ResponseEntity.ok().body(uploadResponse.getFileName());
+    }
+
 }

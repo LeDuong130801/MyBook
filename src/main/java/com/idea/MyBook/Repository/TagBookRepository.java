@@ -9,4 +9,7 @@ public interface TagBookRepository extends MongoRepository<TagBook, String> {
     ArrayList<TagBook> getAllByDeletedIsFalse();
     TagBook getTagBookById(String id);
     Boolean existsTagBookById(String id);
+    ArrayList<TagBook> findAllByDeletedFalseOrDeletedTrue();
+    ArrayList<TagBook> findAllByDeletedFalse();
+    ArrayList<TagBook> findAllByDeletedTrue();
 }

@@ -20,5 +20,6 @@ public class UserAccount {
     String favoriteId;
     String email;
     String phoneNumber;
+    String avatarSrc;
     Boolean deleted;
 }

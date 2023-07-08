@@ -16,16 +16,17 @@ public class FileUploadController {
         this.fileStorageService = fileStorageService;
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<UploadResponse> uploadFile(
-            @RequestParam(name = "file", required = false) MultipartFile file,
-            @RequestParam("fullName") String fullName,
-            @RequestParam("dateOfBirth") String dateOfBirth
-    ) {
+    @PostMapping("/uploadr")
+    public ResponseEntity<UploadResponse> uploadrFile( @RequestParam(name = "file", required = false) MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
-
-        UploadResponse uploadResponse = new UploadResponse(fileName, fullName, dateOfBirth);
-
+        UploadResponse uploadResponse = new UploadResponse(fileName);
         return ResponseEntity.ok().body(uploadResponse);
+    }
+    @PostMapping("/upload")
+    public String uploadFile( @RequestParam(name = "file", required = false) MultipartFile file) {
+        String fileName = fileStorageService.storeFile(file);
+        UploadResponse uploadResponse = new UploadResponse(fileName);
+        ResponseEntity.ok().body(uploadResponse);
+        return fileName;
     }
 }

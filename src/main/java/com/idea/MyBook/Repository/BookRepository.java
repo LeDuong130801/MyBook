@@ -13,4 +13,6 @@ public interface BookRepository extends MongoRepository<Book, String> {
     ArrayList<Book> findAllByDeletedFalseAndBookNameLike(String bookName);
     ArrayList<Book> findAllByDeletedFalseAndTagBookIdContainsAndBookNameLike(ArrayList<String> tagBookId, String bookName);
     public boolean existsBookById(String id);
+    ArrayList<Book> findAllByDeletedFalseOrDeletedTrue();
+    ArrayList<Book> findAllByDeletedTrue();
 }

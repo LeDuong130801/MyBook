@@ -5,10 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class UploadResponse {
-    private String fileName;
+@NoArgsConstructor
+@AllArgsConstructor
+public class SourceLink {
+    String id;
+    String url;
 }

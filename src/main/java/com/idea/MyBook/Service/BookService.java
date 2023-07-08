@@ -4,6 +4,7 @@ import com.idea.MyBook.Model.ActivityLog;
 import com.idea.MyBook.Model.Book;
 import com.idea.MyBook.Repository.ActivityLogRepository;
 import com.idea.MyBook.Repository.BookRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.Random;
 
 @Service
 public class BookService{
+    @Value("${app.file.upload-dir}")
+    private String uploadPath;
     final
     BookRepository thisRepository;
     final
@@ -45,6 +48,18 @@ public class BookService{
         if(thisRepository.existsBookById(book.getId())){
             thisRepository.save(book);
             createActivityLog("Book "+book.getId()+" was edited", book.getId());
+        }
+        else return false;
+        return true;
+    }
+
+    public boolean updateBookImg(String path, String bookId){
+        if(thisRepository.existsBookById(bookId)){
+            Book thisBook = thisRepository.getBookById(bookId);
+            path = uploadPath.substring(1)+"/"+path;
+            thisBook.setSrcImage(path);
+            thisRepository.save(thisBook);
+            createActivityLog("Book "+bookId+" was edited image", bookId);
         }
         else return false;
         return true;
@@ -146,5 +161,8 @@ public class BookService{
             buffer.append((char) randomLimitedInt);
         }
         return buffer.toString();
+    }
+    public boolean exisBookById(String id){
+        return thisRepository.existsBookById(id);
     }
 }

@@ -1,12 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 <head>
     <meta charset="UTF-8">
     <title>My Book Server</title>
 </head>
-<body>
 
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Book</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Tag Book</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">User Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Favorite List</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br><br><br>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card border-primary" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title">Book</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Thống kê về sách</h6>
+                            <p class="card-text">
+                                <nav name="allbook">Tổng số 0 quyển sách</nav><br>
+                                <h6 id="book">Được sử dụng: 0</h6><br>
+                                <nav name="deletedbook"></nav>Bị xóa: 0</nav><br>
+                            </p>
+                            <a href="#" class="card-link">Tải lại thống kê</a>
+                            <a href="#" class="card-link">Xuất pdf</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-success" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title">Tag Book</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Thống kê về thể loại sách</h6>
+                            <p class="card-text">
+                                <nav name="tagname">Tổng số 0 thể loại</nav><br>
+                                Được đọc nhiều nhất: ?<br>
+                                Nhiều sách nhất: ?<br>
+                            </p>
+                            <a href="#" class="card-link">Tải lại thống kê</a>
+                            <a href="#" class="card-link">Xuất pdf</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-danger" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title">Favorite</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Thống kê về sở thích</h6>
+                            <p class="card-text">
+                                <nav name="favorite">Tổng số danh sách yêu thích: ?</nav><br>
+                                Quyển sách được lưu nhiều nhất: ?<br>
+                                Thể loại được lưu nhiều nhất: ?<br>
+                            </p>
+                            <a href="#" class="card-link">Tải lại thống kê</a>
+                            <a href="#" class="card-link">Xuất pdf</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card border-secondary" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title">Book</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Người dùng</h6>
+                            <p class="card-text">
+                                <nav name="useraccount">Số người dùng</nav>
+                                Trung bình truy cập:<br>
+                                Trong 1 ngày qua:<br>
+                            </p>
+                            <a href="#" class="card-link">Tải lại thống kê</a>
+                            <a href="#" class="card-link">Xuất pdf</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+    crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        loadData();
+    })
+    function loadData() {
+        // const data = {
+        //     id: id,
+        //     title: newtitle,
+        //     userid: userid
+        // }
+        $.ajax({
+            url: "http://localhost:8080/api/count/book",
+            method: "GET",
+            success: function (data) {
+
+                console.log(data)
+                $("#book").attr(`Tổng số ${data.val1} quyển sách`)
+
+                 console.log(data.val1)
+            }
+        });
+        // $.ajax({
+        //     url: "/api/count/allbook",
+        //     method: "GET",
+        //     success: function (data) {
+        //         console.log(data)
+        //         $("allbook").val("Được sử dụng: "+data)
+        //     }
+        // });
+        // $.ajax({
+        //     url: "localhost:8080/api/count/deletedbook",
+        //     method: "GET",
+        //     success: function (data) {
+        //         console.log(data)
+        //         $("deletedbook").val("Bị xóa: "+data)
+        //     }
+        // });
+        // $.ajax({
+        //     url: "localhost:8080/api/count/tagbook",
+        //     method: "GET",
+        //     success: function (data) {
+        //         console.log(data)
+        //         $("tagbook").val(`Tổng số ${data} thể loại`)
+        //     }
+        // });
+        // $.ajax({
+        //     url: "localhost:8080/api/count/favorite",
+        //     method: "GET",
+        //     success: function (data) {
+        //         console.log(data)
+        //         $("favorite").val(`Tổng số ${data} danh sách yêu thích`)
+        //     }
+        // });
+        // $.ajax({
+        //     url: "localhost:8080/api/count/useraccount",
+        //     method: "GET",
+        //     success: function (data) {
+        //         console.log(data)
+        //         $("useraccount").val(`Tổng số ${data} tài khoản`)
+        //     }
+        // });
+    }
+</script>
+
 </html>

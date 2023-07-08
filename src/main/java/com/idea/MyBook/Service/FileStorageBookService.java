@@ -14,12 +14,11 @@ import java.util.Date;
 import java.util.Random;
 
 @Service
-public class FileStorageService {
+public class FileStorageBookService {
     private final Path fileStorageLocation;
 
-    @Autowired
-    public FileStorageService(Environment env) {
-        this.fileStorageLocation = Paths.get(env.getProperty("app.file.upload-dir", "./uploads/files"))
+    public FileStorageBookService(Environment env) {
+        this.fileStorageLocation = Paths.get(env.getProperty("app.file.upload-dir", "./uploads/files/books"))
                 .toAbsolutePath().normalize();
 
         try {

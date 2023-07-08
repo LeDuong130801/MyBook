@@ -10,4 +10,7 @@ public interface FavoriteListRepository extends MongoRepository<FavoriteList, St
     ArrayList<FavoriteList> getAllByUserAccountIdAndDeletedIsFalse(String userAccountId);
     FavoriteList getFavoriteListById(String id);
     Boolean existsFavoriteListById(String id);
+    ArrayList<FavoriteList> findAllByDeletedFalseOrDeletedTrue();
+    ArrayList<FavoriteList> findAllByDeletedFalse();
+    ArrayList<FavoriteList> findAllByDeletedTrue();
 }
