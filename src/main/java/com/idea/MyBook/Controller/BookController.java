@@ -43,6 +43,10 @@ public class BookController {
         }
         return thisService.getBookByNameAndTagBookId(tagBookId, name);
     }
+    @RequestMapping(value = "/getlist", method = RequestMethod.GET)
+    public ArrayList<Book> getListBook(){
+        return thisService.getAllBook();
+    }
     @RequestMapping(value = "/editbook", method = RequestMethod.PUT)
     public String editBookName(@RequestBody Book book){
         if(thisService.editBookName(book.getBookName(), book.getId())){
@@ -57,7 +61,7 @@ public class BookController {
         }
         return "Can't find book "+book.getId();
     }
-    @RequestMapping(value = "/edit/tag", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/edittag", method = RequestMethod.DELETE)
     public String removeTagInBook(@RequestBody MixedObj mixedObj){
         //val1 is bookId
         //obj1 is ArrTagBook
@@ -66,7 +70,7 @@ public class BookController {
         thisService.removeTagBookInBook(tagBook, bookId);
         return "removed tagbook in book "+bookId;
     }
-    @RequestMapping(value = "/edit/tag", method = RequestMethod.POST)
+    @RequestMapping(value = "/edittag", method = RequestMethod.POST)
     public String addTagToBook(@RequestBody MixedObj mixedObj){
         //val1 is bookId
         //obj1 is ArrTagBook
@@ -76,10 +80,11 @@ public class BookController {
         return "added tagbook in book "+bookId;
     }
     @PostMapping("/uploadbook")
-    public ResponseEntity<String> uploadFile( @RequestParam(name = "file", required = false) MultipartFile file) {
+    public ResponseEntity<String> uploadFile( @RequestParam(name = "file", required = false) MultipartFile file, @RequestBody Book book) {
         String fileName = fileStorageBookService.storeFile(file);
         UploadResponse uploadResponse = new UploadResponse(fileName);
-
+        book.setSrcImage(fileName);
+        thisService.addNewBook(book);
         return ResponseEntity.ok().body(uploadResponse.getFileName());
     }
     @PostMapping("/uploadbookimg")

@@ -41,64 +41,11 @@
         <br><br><br>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="card border-primary" style="width: 100%;">
-                        <div class="card-body">
+                <div class="col-12">
+                    <div class="card border-primary" onclick="toBookPage()" style="width: 100%;">
+                        <div class="card-body" style="padding: 5px">
                             <h5 class="card-title">Book</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Thống kê về sách</h6>
-                            <p class="card-text">
-                                <nav name="allbook">Tổng số 0 quyển sách</nav><br>
-                                <h6 id="book">Được sử dụng: 0</h6><br>
-                                <nav name="deletedbook"></nav>Bị xóa: 0</nav><br>
-                            </p>
-                            <a href="#" class="card-link">Tải lại thống kê</a>
-                            <a href="#" class="card-link">Xuất pdf</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card border-success" style="width: 100%;">
-                        <div class="card-body">
-                            <h5 class="card-title">Tag Book</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Thống kê về thể loại sách</h6>
-                            <p class="card-text">
-                                <nav name="tagname">Tổng số 0 thể loại</nav><br>
-                                Được đọc nhiều nhất: ?<br>
-                                Nhiều sách nhất: ?<br>
-                            </p>
-                            <a href="#" class="card-link">Tải lại thống kê</a>
-                            <a href="#" class="card-link">Xuất pdf</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card border-danger" style="width: 100%;">
-                        <div class="card-body">
-                            <h5 class="card-title">Favorite</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Thống kê về sở thích</h6>
-                            <p class="card-text">
-                                <nav name="favorite">Tổng số danh sách yêu thích: ?</nav><br>
-                                Quyển sách được lưu nhiều nhất: ?<br>
-                                Thể loại được lưu nhiều nhất: ?<br>
-                            </p>
-                            <a href="#" class="card-link">Tải lại thống kê</a>
-                            <a href="#" class="card-link">Xuất pdf</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card border-secondary" style="width: 100%;">
-                        <div class="card-body">
-                            <h5 class="card-title">Book</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Người dùng</h6>
-                            <p class="card-text">
-                                <nav name="useraccount">Số người dùng</nav>
-                                Trung bình truy cập:<br>
-                                Trong 1 ngày qua:<br>
-                            </p>
-                            <a href="#" class="card-link">Tải lại thống kê</a>
-                            <a href="#" class="card-link">Xuất pdf</a>
+                            <h6 class="card-subtitle mb-2 text-body-secondary" id="numbook">Num:</h6>
                         </div>
                     </div>
                 </div>
@@ -125,51 +72,13 @@
             success: function (data) {
 
                 console.log(data)
-                $("#book").attr(`Tổng số ${data.val1} quyển sách`)
-
-                 console.log(data.val1)
+                sb = document.getElementById("numbook");
+                sb.innerHTML = `Count: ${data.val1}`
             }
         });
-        // $.ajax({
-        //     url: "/api/count/allbook",
-        //     method: "GET",
-        //     success: function (data) {
-        //         console.log(data)
-        //         $("allbook").val("Được sử dụng: "+data)
-        //     }
-        // });
-        // $.ajax({
-        //     url: "localhost:8080/api/count/deletedbook",
-        //     method: "GET",
-        //     success: function (data) {
-        //         console.log(data)
-        //         $("deletedbook").val("Bị xóa: "+data)
-        //     }
-        // });
-        // $.ajax({
-        //     url: "localhost:8080/api/count/tagbook",
-        //     method: "GET",
-        //     success: function (data) {
-        //         console.log(data)
-        //         $("tagbook").val(`Tổng số ${data} thể loại`)
-        //     }
-        // });
-        // $.ajax({
-        //     url: "localhost:8080/api/count/favorite",
-        //     method: "GET",
-        //     success: function (data) {
-        //         console.log(data)
-        //         $("favorite").val(`Tổng số ${data} danh sách yêu thích`)
-        //     }
-        // });
-        // $.ajax({
-        //     url: "localhost:8080/api/count/useraccount",
-        //     method: "GET",
-        //     success: function (data) {
-        //         console.log(data)
-        //         $("useraccount").val(`Tổng số ${data} tài khoản`)
-        //     }
-        // });
+    }
+    function toBookPage(){
+        window.location.href = "bookpage.html"
     }
 </script>
 

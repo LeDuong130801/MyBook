@@ -8,4 +8,6 @@ import java.util.ArrayList;
 public interface BookContentRepository extends MongoRepository<BookContent, String> {
     BookContent getBookContentById(String id);
     ArrayList<BookContent> getAllByBookId(String bookId);
+    boolean existsBookContentById(String id);
+    boolean existsBookContentsByBookId(String bookId);
 }

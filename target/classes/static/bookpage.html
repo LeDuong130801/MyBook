@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+</head>
+<body>
+    <div class="row content">
+        <div style="display: grid; align-self: stretch" id="divlistbook">
+
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function (){
+        loadBook();
+    })
+    function loadBook(){
+        $.ajax({
+            url: "http://localhost:8080/api/book/getlist",
+            method: "GET",
+            success: function (data) {
+
+                console.log(data)
+                sb = document.getElementById("divlistbook");
+                sb.innerHTML = "";
+                var s = "";
+                for(let i=0;i<data.length;i++){
+                    s+=card();
+                }
+                sb.innerHTML = s;
+            }
+        });
+    }
+    function card(){
+        return `<div className="card me-2 col-md-2 col-sm-6">
+            <img
+                src="https://cdn0.fahasa.com/media/catalog/product/cache/1/small_image/400x400/9df78eab33525d08d6e5fb8d27136e95/i/m/image_217480.jpg"
+                className="card-img-top" alt="...">
+                <div className="card-body">
+                    <h5 className="card-title">Cây cam ngọt của tôi</h5>
+                    <p style="font-size: 12px; color: gray;">Còn lại: 15</p>
+                    <p className="card-text text-danger">95000đ</p>
+                </div>
+                <br>
+        </div>`
+    }
+</script>
+</html>
